@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Lavanda</string>
+    <string name="main">Главная</string>
+    <string name="about_us">О нас</string>
+    <string name="cherta">/</string>
+    <string name="catalog">Каталог</string>
+    <string name="dostavka">Доставка и оплата</string>
+    <string name="write">Написать директору</string>
+    <string name="flowers"><u>Цветы</u></string>
+    <string name="bouquets"><u>Букеты</u></string>
+    <string name="for_wedding"><u>Для свадьбы</u></string>
+    <string name="toys"><u>Игрушки</u></string>
+    <string name="balls"><u>Шары</u></string>
+</resources>
