@@ -45,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
                 onButtonShowPopupWindowClick(category);
             }
         });
+        about_us.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,about_us.class));
+            }
+        });
     }
 
 
