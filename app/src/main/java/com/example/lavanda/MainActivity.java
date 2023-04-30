@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
-                startActivity(new Intent(MainActivity.this, about_us.class));
+                startActivity(new Intent(MainActivity.this, menu_shop.class).putExtra("flowers",0));
             }
         });
 

@@ -15,12 +15,11 @@ import java.util.List;
 
 public class PrAdapterHolder extends RecyclerView.Adapter<PrAdapterHolder.PrViewHolder> {
 
-    private final LayoutInflater inflater;
     private Context context;
     private final List<PrAdapter> states;
 
-    public PrAdapterHolder(LayoutInflater inflater,List<PrAdapter> states) {
-        this.inflater = inflater;
+    public PrAdapterHolder(Context context,List<PrAdapter> states) {
+        this.context = context;
         this.states = states;
     }
 
@@ -28,36 +27,36 @@ public class PrAdapterHolder extends RecyclerView.Adapter<PrAdapterHolder.PrView
     @NonNull
     @Override
     public PrAdapterHolder.PrViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.list_item_menu, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.list_item_menu, parent, false);
         return new PrViewHolder(view, states);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PrAdapterHolder.PrViewHolder holder, int position) {
         PrAdapter prAdapter = states.get(position);
-        holder.nameView1.setText(prAdapter.getName(0));
-        holder.nameView3.setText(prAdapter.getName(2));
-        holder.nameView2.setText(prAdapter.getName(1));
+        holder.nameView1.setText(states.get(position).getName(0));
+        holder.nameView3.setText(states.get(position).getName(2));
+        holder.nameView2.setText(states.get(position).getName(1));
 
-        holder.priceView1.setText(prAdapter.getPrice(0));
-        holder.priceView2.setText(prAdapter.getPrice(1));
-        holder.priceView3.setText(prAdapter.getPrice(2));
+        holder.priceView1.setText(states.get(position).getPrice(0));
+        holder.priceView2.setText(states.get(position).getPrice(1));
+        holder.priceView3.setText(states.get(position).getPrice(2));
 
 
         String img_res1 = states.get(position).getImageViews(0);
-        String img_res2 = states.get(position).getImageViews(0);
-        String img_res3 = states.get(position).getImageViews(0);
+        String img_res2 = states.get(position).getImageViews(1);
+        String img_res3 = states.get(position).getImageViews(2);
         int img1 = context.getResources().getIdentifier(img_res1,"drawable",context.getPackageName());
         int img2 = context.getResources().getIdentifier(img_res2,"drawable",context.getPackageName());
         int img3 = context.getResources().getIdentifier(img_res3,"drawable",context.getPackageName());
         holder.imageView1.setImageResource(img1);
-        holder.imageView1.setImageResource(img2);
-        holder.imageView1.setImageResource(img3);
+        holder.imageView2.setImageResource(img2);
+        holder.imageView3.setImageResource(img3);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return states.size();
     }
 
     public static class PrViewHolder extends RecyclerView.ViewHolder {
