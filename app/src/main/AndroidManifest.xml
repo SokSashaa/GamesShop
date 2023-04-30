@@ -11,6 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lavanda"
         tools:targetApi="31">
+        <activity android:name=".product_item"
+            android:exported="true"/>
         <activity android:name=".about_us"
             android:exported="true"/>
         <activity android:name=".menu_shop"

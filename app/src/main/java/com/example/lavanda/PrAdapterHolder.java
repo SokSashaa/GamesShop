@@ -1,6 +1,7 @@
 package com.example.lavanda;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,6 @@ public class PrAdapterHolder extends RecyclerView.Adapter<PrAdapterHolder.PrView
 
     @Override
     public void onBindViewHolder(@NonNull PrAdapterHolder.PrViewHolder holder, int position) {
-        PrAdapter prAdapter = states.get(position);
         holder.nameView1.setText(states.get(position).getName(0));
         holder.nameView3.setText(states.get(position).getName(2));
         holder.nameView2.setText(states.get(position).getName(1));
@@ -52,6 +52,15 @@ public class PrAdapterHolder extends RecyclerView.Adapter<PrAdapterHolder.PrView
         holder.imageView1.setImageResource(img1);
         holder.imageView2.setImageResource(img2);
         holder.imageView3.setImageResource(img3);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,MainActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
