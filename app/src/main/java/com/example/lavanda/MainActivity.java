@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
@@ -63,19 +64,43 @@ public class MainActivity extends AppCompatActivity {
 
         boolean focusable = true; // lets taps outside the popup also dismiss it
 
-        final PopupWindow popupWindow = new PopupWindow(popupView, 600, 620, focusable); // 600 460
+        final PopupWindow popupWindow = new PopupWindow(popupView, 700, 720, focusable); // 600 460
 
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window tolken
 
 
 
-        TextView flowers = (TextView)popupView.findViewById(R.id.textView12);
+        TextView flowers = (TextView)popupView.findViewById(R.id.textView13);
         flowers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
-                startActivity(new Intent(MainActivity.this, menu_shop.class).putExtra("flowers",0));
+                startActivity(new Intent(MainActivity.this, menu_shop.class).putExtra("menu",0));
+            }
+        });
+        TextView forWedding = (TextView)popupView.findViewById(R.id.textView14);
+        forWedding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+                startActivity(new Intent(MainActivity.this, menu_shop.class).putExtra("menu",1));
+            }
+        });
+        TextView balls = (TextView)popupView.findViewById(R.id.textView15);
+        balls.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+                startActivity(new Intent(MainActivity.this, menu_shop.class).putExtra("menu",2));
+            }
+        });
+        TextView toys = (TextView)popupView.findViewById(R.id.textView16);
+        toys.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+                startActivity(new Intent(MainActivity.this, menu_shop.class).putExtra("menu",3));
             }
         });
 
@@ -83,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         category.getLocationInWindow(location);
         int x = location[0];
         int y = location[1];
-        popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, x-150, y+80);
+        popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, x-215, y-210);
 
         // dismiss the popup window when touched
         popupView.setOnTouchListener(new View.OnTouchListener() {
