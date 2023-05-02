@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:theme="@style/Theme.MaterialComponents.NoActionBar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/exit_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#00FFFFFF"
@@ -28,17 +29,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="30dp"
-                app:strokeWidth="2dp"
-                app:strokeColor="@color/purple_500">
+                app:strokeColor="@color/purple_500"
+                app:strokeWidth="2dp">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_product"
                     android:layout_width="303dp"
                     android:layout_height="289dp"
                     android:scaleType="centerCrop"
@@ -70,11 +72,18 @@
                 android:id="@+id/price_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="TextView"
                 android:textColor="#000000"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:gravity="center"/>
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="20sp" />
         </LinearLayout>
 
     </LinearLayout>

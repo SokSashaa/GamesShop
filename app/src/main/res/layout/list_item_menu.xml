@@ -26,6 +26,7 @@
                     android:id="@+id/image1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="Send"
                     android:scaleType="centerCrop"
                     android:src="@drawable/buket" />
 
@@ -70,6 +71,7 @@
                     android:id="@+id/image2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="Send"
                     android:scaleType="centerCrop"
                     android:src="@drawable/buket" />
 
@@ -113,8 +115,8 @@
                     android:id="@+id/image3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/buket" />
+                    android:onClick="Send"
+                    android:scaleType="centerCrop" />
 
             </androidx.cardview.widget.CardView>
 
@@ -128,7 +130,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Букет"
                 android:textColor="#000000" />
 
             <TextView
@@ -136,7 +137,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="1200 р."
                 android:textColor="#000000" />
         </LinearLayout>
     </LinearLayout>
