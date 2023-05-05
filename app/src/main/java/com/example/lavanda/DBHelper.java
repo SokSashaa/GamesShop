@@ -16,23 +16,16 @@ import java.io.OutputStream;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION=3;
-    public static final String DATABASE_NAME = "contract";
-    public static final String TABLE_CONTACT="contacts";
+    public static final int DATABASE_VERSION=1;
+    public static final String DATABASE_NAME = "menu";
+    public static final String TABLE_CONTACT="menu";
     public static String DATABASE_PATH = "";
 
-    public static  final String KEY_ID="_id";
-    public static final String KEY_INSTITUTE="inst";
-    public static final String KEY_SPEC="spec";
-    public static final String KEY_GROUP="groupe";
-    public static final String KEY_TYPE_WEEK="type_week";
-    public static final String KEY_DAY_OF_WEEK = "day_of_week";
-    public static final String KEY_SUBJECT = "subject";
-    public static final String KEY_TEACHER = "teacher";
-    public static final String KEY_PLACE = "place";
-    public static final String KEY_COMMENT = "comment";
-    public static final String KEY_TYPE_SUBJECT = "type_subject";
-    public static final String KEY_NUMBER = "number";
+    public static  final String KEY_ID="id";
+    public static final String KEY_NAME="name";
+    public static final String KEY_PRICE = "price";
+    public static final String KEY_IMG = "image";
+    public static final String KEY_CATEGORY ="id_category";
     Context myContext;
 
 

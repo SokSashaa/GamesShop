@@ -1,6 +1,8 @@
 package com.example.lavanda;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -22,33 +24,33 @@ import java.util.ArrayList;
 
 public class menu_shop extends AppCompatActivity {
 
-    ArrayList<CustomAdapter[]> menu1 = new ArrayList<CustomAdapter[]>();
-    RecyclerView recyclerView;
-    TextView main;
-    TextView category;
-    TextView about_us;
-    CustomAdapterHolder customAdapterHolder;
+   private ArrayList<CustomAdapter[]> menu1 = new ArrayList<CustomAdapter[]>();
+    private RecyclerView recyclerView;
+    private TextView main;
+    private TextView category;
+    private TextView about_us;
+    private CustomAdapterHolder customAdapterHolder;
+    private DBHelper dbHelper;
+    private SQLiteDatabase database;
+    private Integer indexMenu;
+    private Cursor cursor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_shop);
 
-        int indexMenu = getIntent().getIntExtra("menu",-1);
-        switch (indexMenu){
-            case 0:
-                initialInformationForFlowers();break;
-            case 1:break;
-            case 2:break;
-            case 3:break;
-        }
+        dbHelper = new DBHelper(this);
+        dbHelper.create_db();
+        database = dbHelper.open();
 
-
-
+        indexMenu = getIntent().getIntExtra("menu",-1);
+        setInformationForList();
 
 
         recyclerView = (RecyclerView) findViewById(R.id.rec);
-        recyclerView.setHasFixedSize(true);
+        // recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         customAdapterHolder = new CustomAdapterHolder(this, menu1);
         recyclerView.setAdapter(customAdapterHolder);
@@ -65,6 +67,7 @@ public class menu_shop extends AppCompatActivity {
         main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
                 startActivity(new Intent(menu_shop.this,MainActivity.class));
             }
         });
@@ -79,25 +82,6 @@ public class menu_shop extends AppCompatActivity {
 
     }
 
-    private void initialInformationForFlowers()
-    {
-        CustomAdapter customAdapter = new CustomAdapter("buket", "Букет1", "1201");
-        CustomAdapter customAdapter1 = new CustomAdapter("buket1", "Букет2", "1202");
-        CustomAdapter customAdapter2 = new CustomAdapter("buket2", "Букет3", "1203");
-        CustomAdapter[] customAdapters = new CustomAdapter[]{customAdapter, customAdapter1, customAdapter2};
-        menu1.add(customAdapters);
-        CustomAdapter customAdapter3 = new CustomAdapter("buket", "Букет4", "1204");
-        CustomAdapter customAdapter4 = new CustomAdapter("buket1", "Букет5", "1205");
-        CustomAdapter customAdapter5 = new CustomAdapter("buket2", "Букет6", "1206");
-        CustomAdapter[] customAdapters1 = new CustomAdapter[]{customAdapter3, customAdapter4, customAdapter5};
-        menu1.add(customAdapters1);
-
-    }
-    @Override
-    protected void onResume() {
-
-        super.onResume();
-    }
 
     public void Send(View v) {
 
@@ -151,7 +135,7 @@ public class menu_shop extends AppCompatActivity {
             public void onClick(View view) {
                 popupWindow.dismiss();
                 menu1.clear();
-                //заполнение из бд
+                setInformationForList();
                 recyclerView.setAdapter(customAdapterHolder);
 
             }
@@ -161,7 +145,9 @@ public class menu_shop extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
-               // startActivity(new Intent(MainActivity.this, menu_shop.class).putExtra("menu",1));
+              indexMenu=1;
+              setInformationForList();
+                recyclerView.setAdapter(customAdapterHolder);
             }
         });
         TextView balls = (TextView)popupView.findViewById(R.id.textView15);
@@ -169,7 +155,9 @@ public class menu_shop extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
-                //startActivity(new Intent(MainActivity.this, menu_shop.class).putExtra("menu",2));
+                indexMenu=2;
+                setInformationForList();
+                recyclerView.setAdapter(customAdapterHolder);
             }
         });
         TextView toys = (TextView)popupView.findViewById(R.id.textView16);
@@ -177,7 +165,9 @@ public class menu_shop extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
-                //startActivity(new Intent(MainActivity.this, menu_shop.class).putExtra("menu",3));
+                indexMenu=3;
+                setInformationForList();
+                recyclerView.setAdapter(customAdapterHolder);
             }
         });
 
@@ -195,6 +185,59 @@ public class menu_shop extends AppCompatActivity {
                 return true;
             }
         });
+    }
+    private void setInformationForList()
+    {
+        menu1.clear();
+        
+        String selection = "id_category = ?";
+        try{
+            CustomAdapter[] customAdapters = new CustomAdapter[3];
+            int index = 0;
+
+
+            cursor = database.query(DBHelper.TABLE_CONTACT,null,selection,new String[] {indexMenu.toString()},null,null,null);
+
+
+            if(cursor.moveToFirst()){
+                int nameIndex = cursor.getColumnIndex(DBHelper.KEY_NAME);
+                int priceIndex = cursor.getColumnIndex(DBHelper.KEY_PRICE);
+                int imgIndex = cursor.getColumnIndex(DBHelper.KEY_IMG);
+                do{
+                    if(index!=3)
+                    {
+                        String nameMenu = cursor.getString(nameIndex);
+                        String priceMenu = cursor.getString(priceIndex);
+                        String imgMenu = cursor.getString(imgIndex);
+                        CustomAdapter customAdapter = new CustomAdapter(imgMenu,nameMenu,priceMenu);
+                        customAdapters[index] = customAdapter;
+                        index++;
+                    }
+                    if (index==3)
+                    {
+                        index=0;
+                        menu1.add(customAdapters);
+                        customAdapters=new CustomAdapter[3];
+                    }
+
+                }
+                while(cursor.moveToNext());
+                if(index!=0)
+                {
+                    for(int i=index;i<customAdapters.length;i++)
+                    {
+                        CustomAdapter customAdapter1 = new CustomAdapter("","","");
+                        customAdapters[i]=customAdapter1;
+
+                    }
+                    menu1.add(customAdapters);
+                }
+
+
+            }
+            cursor.close();
+        }
+        catch (Exception e){Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();}
     }
 }
 
