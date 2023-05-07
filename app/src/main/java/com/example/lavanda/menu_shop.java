@@ -41,19 +41,23 @@ public class menu_shop extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_shop);
 
+
+        // initialization database
         dbHelper = new DBHelper(this);
-        dbHelper.create_db();
-        database = dbHelper.open();
+        dbHelper.create_db(); // create database
+        database = dbHelper.open(); // open database
 
-        indexMenu = getIntent().getIntExtra("menu",-1);
-        setInformationForList();
+        indexMenu = getIntent().getIntExtra("menu",-1); // get value index since last activity
+        setInformationForList(); // get information from database and add values in arrayList "menu"
 
 
+        // initialization recycleView
         recyclerView = (RecyclerView) findViewById(R.id.rec);
-        // recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         customAdapterHolder = new CustomAdapterHolder(this, menu1);
         recyclerView.setAdapter(customAdapterHolder);
+
+        //initialization TextViews and add onClickListener
 
         about_us = (TextView) findViewById(R.id.textView5);
         about_us.setOnClickListener(new View.OnClickListener() {
@@ -84,11 +88,10 @@ public class menu_shop extends AppCompatActivity {
 
 
     public void Send(View v) {
-
+        Intent intent = new Intent(menu_shop.this, product_item.class);
         switch (v.getId()) {
             case R.id.image1:
                 int position = Integer.parseInt(v.getTag().toString());
-                Intent intent = new Intent(menu_shop.this, product_item.class);
                 intent.putExtra("name", menu1.get(position)[0].getNames());
                 intent.putExtra("price", menu1.get(position)[0].getPrice());
                 intent.putExtra("img", menu1.get(position)[0].getImageViews());
@@ -96,21 +99,18 @@ public class menu_shop extends AppCompatActivity {
                 break;
             case R.id.image2:
                 int position1 = Integer.parseInt(v.getTag().toString());
-                Intent intent1 = new Intent(menu_shop.this, product_item.class);
-                intent1.putExtra("name", menu1.get(position1)[1].getNames());
-                intent1.putExtra("price", menu1.get(position1)[1].getPrice());
-                intent1.putExtra("img", menu1.get(position1)[1].getImageViews());
-                startActivity(intent1);
+                intent.putExtra("name", menu1.get(position1)[1].getNames());
+                intent.putExtra("price", menu1.get(position1)[1].getPrice());
+                intent.putExtra("img", menu1.get(position1)[1].getImageViews());
+                startActivity(intent);
                 break;
             case R.id.image3:
                 int position2 = Integer.parseInt(v.getTag().toString());
-                Intent intent2 = new Intent(menu_shop.this, product_item.class);
-                intent2.putExtra("name", menu1.get(position2)[2].getNames());
-                intent2.putExtra("price", menu1.get(position2)[2].getPrice());
-                intent2.putExtra("img", menu1.get(position2)[2].getImageViews());
-                startActivity(intent2);
+                intent.putExtra("name", menu1.get(position2)[2].getNames());
+                intent.putExtra("price", menu1.get(position2)[2].getPrice());
+                intent.putExtra("img", menu1.get(position2)[2].getImageViews());
+                startActivity(intent);
                 break;
-
         }
     }
     public void onButtonShowPopupWindowClick(View view) {
@@ -122,11 +122,10 @@ public class menu_shop extends AppCompatActivity {
 
         boolean focusable = true; // lets taps outside the popup also dismiss it
 
-        final PopupWindow popupWindow = new PopupWindow(popupView, 700, 720, focusable); // 600 460
+        final PopupWindow popupWindow = new PopupWindow(popupView, 700, 920, focusable);
 
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window tolken
-
 
 
         TextView flowers = (TextView)popupView.findViewById(R.id.textView13);
@@ -135,6 +134,7 @@ public class menu_shop extends AppCompatActivity {
             public void onClick(View view) {
                 popupWindow.dismiss();
                 menu1.clear();
+                indexMenu=0;
                 setInformationForList();
                 recyclerView.setAdapter(customAdapterHolder);
 
@@ -171,6 +171,8 @@ public class menu_shop extends AppCompatActivity {
             }
         });
 
+
+        //determination of coordinates
         int [] location = new int[2];
         category.getLocationInWindow(location);
         int x = location[0];
@@ -192,29 +194,34 @@ public class menu_shop extends AppCompatActivity {
         
         String selection = "id_category = ?";
         try{
+            // array CustomAdapters
             CustomAdapter[] customAdapters = new CustomAdapter[3];
             int index = 0;
 
-
+            //get information from database by condition
             cursor = database.query(DBHelper.TABLE_CONTACT,null,selection,new String[] {indexMenu.toString()},null,null,null);
 
 
             if(cursor.moveToFirst()){
+                // get index columns
                 int nameIndex = cursor.getColumnIndex(DBHelper.KEY_NAME);
                 int priceIndex = cursor.getColumnIndex(DBHelper.KEY_PRICE);
                 int imgIndex = cursor.getColumnIndex(DBHelper.KEY_IMG);
                 do{
                     if(index!=3)
                     {
+                        //get strings from columns
                         String nameMenu = cursor.getString(nameIndex);
                         String priceMenu = cursor.getString(priceIndex);
                         String imgMenu = cursor.getString(imgIndex);
+                        //create object CustomAdapter and add it in array "CustomAdapters"
                         CustomAdapter customAdapter = new CustomAdapter(imgMenu,nameMenu,priceMenu);
                         customAdapters[index] = customAdapter;
                         index++;
                     }
                     if (index==3)
                     {
+                        //if there are three elements in the array then index = 0 and redefining the array reference
                         index=0;
                         menu1.add(customAdapters);
                         customAdapters=new CustomAdapter[3];
@@ -222,6 +229,7 @@ public class menu_shop extends AppCompatActivity {
 
                 }
                 while(cursor.moveToNext());
+                //if array contains less than three elements then add new elements
                 if(index!=0)
                 {
                     for(int i=index;i<customAdapters.length;i++)
@@ -232,7 +240,6 @@ public class menu_shop extends AppCompatActivity {
                     }
                     menu1.add(customAdapters);
                 }
-
 
             }
             cursor.close();

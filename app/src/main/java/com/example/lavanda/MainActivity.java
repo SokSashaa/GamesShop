@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Layout;
 import android.text.SpannableString;
@@ -26,9 +27,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView maint;
-    TextView category;
-    TextView about_us;
+    private TextView category;
+    private TextView about_us;
 
 
     @Override
@@ -36,16 +36,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        maint = (TextView)findViewById(R.id.textView);
+        //initialization textViews
         category = (TextView) findViewById(R.id.textView3);
         about_us = (TextView) findViewById(R.id.textView5);
 
+        //Set onClickListener for TextView category
         category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onButtonShowPopupWindowClick(category);
             }
         });
+        //Set onClickListener for TextView about_us
         about_us.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         boolean focusable = true; // lets taps outside the popup also dismiss it
 
-        final PopupWindow popupWindow = new PopupWindow(popupView, 700, 720, focusable); // 600 460
+        final PopupWindow popupWindow = new PopupWindow(popupView, 700, 920, focusable);
 
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window tolken
