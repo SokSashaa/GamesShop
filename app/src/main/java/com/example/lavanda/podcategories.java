@@ -1,8 +1,11 @@
 package com.example.lavanda;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +21,7 @@ public class podcategories extends AppCompatActivity {
     private CustomAdapterHolderForProd customAdapterHolder;
     private SQLiteDatabase database;
     private Cursor cursor;
-    private DBHelperCat dbHelperCat;
+    private DBHelper dbHelper;
     private String index;
 
     @Override
@@ -26,9 +29,9 @@ public class podcategories extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.podcategories);
 
-        dbHelperCat = new DBHelperCat(this);
-        dbHelperCat.create_db();
-        database = dbHelperCat.open();
+        dbHelper = new DBHelper(this);
+        dbHelper.create_db();
+        database = dbHelper.open();
 
         index = getIntent().getStringExtra("index");
         setInformationForList();
@@ -39,6 +42,27 @@ public class podcategories extends AppCompatActivity {
         podcat.setAdapter(customAdapterHolder);
         podcat.setNestedScrollingEnabled(false);
 
+        TextView main = (TextView)findViewById(R.id.textView);
+        main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(podcategories.this,MainActivity.class));
+            }
+        });
+        TextView categories = (TextView)findViewById(R.id.textView3);
+        categories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(podcategories.this,menu_shop.class));
+            }
+        });
+        TextView about_us = (TextView)findViewById(R.id.textView5);
+        about_us.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(podcategories.this,about_us.class));
+            }
+        });
     }
 
     private void setInformationForList()
@@ -46,9 +70,6 @@ public class podcategories extends AppCompatActivity {
         list.clear();
 
         try{
-            // array CustomAdapters
-            CustomAdapter customAdapters;
-
             String selection = "id_category = ?";
 
             //get information from database by condition
@@ -67,8 +88,6 @@ public class podcategories extends AppCompatActivity {
 
                     CustomAdapter customAdapter = new CustomAdapter(imgMenu,nameMenu,priceMenu);
                     list.add(customAdapter);
-
-
                 }
                 while(cursor.moveToNext());
             }

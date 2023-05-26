@@ -21,7 +21,7 @@ public class menu_shop extends AppCompatActivity {
     private TextView main;
     private TextView about_us;
     private CustomAdapterHolder customAdapterHolder;
-    private DBHelper dbHelper;
+    private DBHelperCat dbHelper;
     private SQLiteDatabase database;
     private Cursor cursor;
 
@@ -32,7 +32,7 @@ public class menu_shop extends AppCompatActivity {
 
 
         // initialization database
-        dbHelper = new DBHelper(this);
+        dbHelper = new DBHelperCat(this);
         dbHelper.create_db(); // create database
         database = dbHelper.open(); // open database
 

@@ -21,7 +21,7 @@ public class DBHelperCat extends SQLiteOpenHelper {
     public static final String TABLE_CONTACT="categories";
     public static String DATABASE_PATH = "";
 
-    public static  final String KEY_ID="id";
+    public static  final String KEY_ID="_id";
     public static final String KEY_NAME="name";
     public static final String KEY_IMG = "image";
     private Context myContext;

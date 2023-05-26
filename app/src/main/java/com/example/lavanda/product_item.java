@@ -39,7 +39,7 @@ public class product_item extends AppCompatActivity {
         String i = getIntent().getStringExtra("img");
 
         name.setText(n);
-        price.setText(p);
+        price.setText(p + "Р");
         int imgIndex = getResources().getIdentifier(i,"drawable",getPackageName());
         img.setImageResource(imgIndex);
         exit.setOnClickListener(new View.OnClickListener() {

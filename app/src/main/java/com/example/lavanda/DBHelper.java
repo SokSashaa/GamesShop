@@ -16,9 +16,9 @@ import java.io.OutputStream;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION=1;
-    public static final String DATABASE_NAME = "menu";
-    public static final String TABLE_CONTACT="menu";
+    public static final int DATABASE_VERSION=2;
+    public static final String DATABASE_NAME = "menu1";
+    public static final String TABLE_CONTACT="menu1";
     public static String DATABASE_PATH = "";
 
     public static  final String KEY_ID="id";
@@ -37,20 +37,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-    /*    db.execSQL("create table " + TABLE_CONTACT + " ("
-                + KEY_ID + " integer primary key,"
-                +KEY_INSTITUTE+ " text,"
-                + KEY_SPEC + " text,"
-                + KEY_GROUP + " text,"
-                + KEY_TYPE_WEEK + " text,"
-                + KEY_DAY_OF_WEEK + " text,"
-                + KEY_NUMBER + " integer,"
-                + KEY_SUBJECT + " text,"
-                + KEY_PLACE + " text,"
-                + KEY_TYPE_SUBJECT + " text,"
-                + KEY_TEACHER + " text,"
-                + KEY_COMMENT + " text"
-                + ") ");*/
     }
 
     @Override
