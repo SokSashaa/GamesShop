@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class CustomAdapterHolder extends RecyclerView.Adapter<CustomAdapterHolder.PrViewHolder> {
+public class CustomAdapterHolderForProd extends RecyclerView.Adapter<CustomAdapterHolderForProd.PrViewHolder> {
 
     private Context context;
-    private final List<CustomAdapterForCat> states;
+    private final List<CustomAdapter> states;
 
-    public CustomAdapterHolder(Context context, List<CustomAdapterForCat> states) {
+    public CustomAdapterHolderForProd(Context context, List<CustomAdapter> states) {
         this.context = context;
         this.states = states;
     }
@@ -26,15 +26,15 @@ public class CustomAdapterHolder extends RecyclerView.Adapter<CustomAdapterHolde
 
     @NonNull
     @Override
-    public CustomAdapterHolder.PrViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_menu, parent, false);
+    public CustomAdapterHolderForProd.PrViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.prod_list, parent, false);
         return new PrViewHolder(view, states);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomAdapterHolder.PrViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CustomAdapterHolderForProd.PrViewHolder holder, int position) {
 
-        CustomAdapterForCat customAdapters =states.get(position);
+        CustomAdapter customAdapters =states.get(position);
 
         String name = customAdapters.getNames();
         holder.nameView1.setText(name);
@@ -44,10 +44,16 @@ public class CustomAdapterHolder extends RecyclerView.Adapter<CustomAdapterHolde
         int imgIndex = context.getResources().getIdentifier(img_res,"drawable",context.getPackageName());
         holder.imageView1.setImageResource(imgIndex);
         holder.imageView1.setTag(position);
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.startActivity(new Intent(context,podcategories.class).putExtra("index",customAdapters.getIndex()));
+                Intent intent = new Intent(context,product_item.class);
+                intent.putExtra("name",name);
+                intent.putExtra("price",customAdapters.getPrice());
+                intent.putExtra("img",img_res);
+                context.startActivity(intent);
             }
         });
 
@@ -62,13 +68,13 @@ public class CustomAdapterHolder extends RecyclerView.Adapter<CustomAdapterHolde
        private TextView nameView1;
         private ImageView imageView1;
 
-        private final List<CustomAdapterForCat> listNotes;
+        private final List<CustomAdapter> listNotes;
 
-        PrViewHolder(View view, List<CustomAdapterForCat> listNotes) {
+        PrViewHolder(View view, List<CustomAdapter> listNotes) {
             super(view);
 
-            nameView1 = (TextView) view.findViewById(R.id.textView7);
-            imageView1 = (ImageView)view.findViewById(R.id.imageView);
+            nameView1 = (TextView) view.findViewById(R.id.textView9);
+            imageView1 = (ImageView)view.findViewById(R.id.imageView6);
 
             this.listNotes = listNotes;
 

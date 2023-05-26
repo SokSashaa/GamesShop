@@ -44,7 +44,7 @@
                     android:layout_width="303dp"
                     android:layout_height="289dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/buket" />
+                    android:src="@drawable/seven" />
 
             </com.google.android.material.card.MaterialCardView>
 

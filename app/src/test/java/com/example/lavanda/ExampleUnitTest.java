@@ -1,4 +1,4 @@
-package com.example.lavanda;
+package com.example.gamesshop;
 
 import org.junit.Test;
 

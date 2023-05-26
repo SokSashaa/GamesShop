@@ -1,4 +1,4 @@
-package com.example.lavanda;
+package com.example.gamesshop;
 
 import android.content.Context;
 

@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/consLayout"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#584A34">
+        android:orientation="vertical">
 
         <LinearLayout
+            tools:ignore="MissingConstraints"
             android:layout_width="match_parent"
             android:layout_height="61dp"
             android:background="#3C2F26"
-            android:orientation="horizontal"
-            tools:ignore="MissingConstraints">
+            android:orientation="horizontal">
 
 
             <LinearLayout
@@ -26,21 +22,29 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingLeft="23dp"/>
+                android:paddingLeft="23dp">
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingLeft="100dp"/>
+                android:paddingLeft="100dp">
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingLeft="85dp"/>
+                android:paddingLeft="85dp">
+
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -60,7 +64,7 @@
                 android:fontFamily="@font/interregular"
                 android:gravity="center"
                 android:text="@string/main"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <TextView
@@ -82,7 +86,7 @@
                 android:fontFamily="@font/interregular"
                 android:gravity="center"
                 android:text="@string/catalog"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <TextView
@@ -104,7 +108,7 @@
                 android:fontFamily="@font/interregular"
                 android:gravity="center"
                 android:text="@string/about_us"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -112,15 +116,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#584A34"
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rec"
+                android:id="@+id/ppod"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <LinearLayout
@@ -169,7 +171,5 @@
                     android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
-
 </ScrollView>
